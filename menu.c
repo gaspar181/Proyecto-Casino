@@ -1,64 +1,203 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "menu.h"
+#include "ruleta.h"
+#include "utils.h"
+#include <time.h>
 
-void limpiarPantalla() {
-#ifdef _WIN32
-    system("cls");
-#else
-    system("clear");
-#endif
+// Funciones auxiliares para juegos y bonificaciones
+void jugarBlackjack(Jugador *j) {
+    printf("Blackjack aún no implementado.\n");
+    presioneTeclaParaContinuar();
 }
 
-void presioneTeclaParaContinuar() {
-    printf("Presione una tecla para continuar...");
-    getchar(); // Limpia el buffer
-    getchar(); // Espera la tecla
+void jugarRuleta(Jugador *j) {
+    CasillaRuleta ruleta[TOTAL_CASILLAS];
+    inicializarRuleta(ruleta);
+
+    Apuesta apuesta;
+    int opcion;
+    printf("=== Juego de Ruleta ===\n");
+    printf("Tipos de apuesta:\n");
+    printf("1. Número (0-36)\n");
+    printf("2. Color (Rojo o Negro)\n");
+    printf("3. Rango (1-12, 13-24, 25-36)\n");
+    printf("Seleccione tipo de apuesta: ");
+    scanf("%d", &opcion);
+    getchar();
+
+    apuesta.cantidad = 0;
+    apuesta.tipo = 0;
+
+    switch (opcion) {
+        case 1:
+            apuesta.tipo = APUESTA_NUMERO;
+            printf("Ingrese el número al que desea apostar (0-36): ");
+            scanf("%d", &apuesta.numero);
+            while (apuesta.numero < 0 || apuesta.numero > 36) {
+                printf("Número inválido. Ingrese un número entre 0 y 36: ");
+                scanf("%d", &apuesta.numero);
+            }
+            break;
+
+        case 2:
+            apuesta.tipo = APUESTA_COLOR;
+            printf("Ingrese el color al que desea apostar (1=Rojo, 2=Negro): ");
+            scanf("%d", &opcion);
+            while (opcion != 1 && opcion != 2) {
+                printf("Color inválido. Ingrese 1 para Rojo o 2 para Negro: ");
+                scanf("%d", &opcion);
+            }
+            apuesta.color = (opcion == 1) ? ROJO : NEGRO;
+            break;
+
+        case 3:
+            apuesta.tipo = APUESTA_RANGO;
+            printf("Seleccione rango:\n");
+            printf("1. 1 - 12\n");
+            printf("2. 13 - 24\n");
+            printf("3. 25 - 36\n");
+            scanf("%d", &opcion);
+            switch (opcion) {
+                case 1:
+                    apuesta.rango_inicio = 1;
+                    apuesta.rango_fin = 12;
+                    break;
+                case 2:
+                    apuesta.rango_inicio = 13;
+                    apuesta.rango_fin = 24;
+                    break;
+                case 3:
+                    apuesta.rango_inicio = 25;
+                    apuesta.rango_fin = 36;
+                    break;
+                default:
+                    printf("Rango inválido, se asignará 1-12 por defecto.\n");
+                    apuesta.rango_inicio = 1;
+                    apuesta.rango_fin = 12;
+                    break;
+            }
+            break;
+
+        default:
+            printf("Opción inválida.\n");
+            presioneTeclaParaContinuar();
+            return;
+    }
+
+    printf("Ingrese la cantidad a apostar: ");
+    scanf("%lf", &apuesta.cantidad);
+    while (apuesta.cantidad <= 0) {
+        printf("Cantidad inválida. Ingrese un valor positivo: ");
+        scanf("%lf", &apuesta.cantidad);
+    }
+
+    int resultado = girarRuleta();
+    printf("La ruleta gira... y sale el número %d (%s)\n",
+           resultado,
+           ruleta[resultado].color == ROJO ? "Rojo" :
+           ruleta[resultado].color == NEGRO ? "Negro" : "Verde");
+
+    double multiplicadorBonificacion = 1.0; // Por ahora sin bonificadores activos
+    double ganancia = calcularPago(&apuesta, ruleta, resultado, multiplicadorBonificacion);
+
+    if (ganancia > 0) {
+        printf("¡Felicidades! Ganó %.2f unidades.\n", ganancia);
+        j->saldo += ganancia;
+    } else {
+        printf("No ganó esta vez.\n");
+        j->saldo -= apuesta.cantidad;
+    }
+
+    printf("Saldo actual: %.2f\n", j->saldo);
+
+    presioneTeclaParaContinuar();
 }
 
-void menu_inicio() {
-    int opcion = 0;
+void jugarApuestasDeportivas(Jugador *j) {
+    printf("Apuestas deportivas aún no implementadas.\n");
+    presioneTeclaParaContinuar();
+}
+
+void mostrarBonificadores(Jugador *j) {
+    printf("Gestión de bonificadores aún no implementada.\n");
+    presioneTeclaParaContinuar();
+}
+
+// Menú principal de juegos
+void menu_juego(Jugador *j) {
+    int opcion;
     do {
         limpiarPantalla();
-        printf("===== Bienvenido al Casino Virtual =====\n");
-        printf("1. Iniciar partida\n");
-        printf("2. Ver ranking\n");
-        printf("3. Salir\n");
+        printf("=== Menú de Juegos ===\n");
+        printf("1. Blackjack\n");
+        printf("2. Ruleta\n");
+        printf("3. Apuestas Deportivas\n");
+        printf("0. Volver\n");
         printf("Seleccione una opción: ");
         scanf("%d", &opcion);
-        getchar(); // Limpia el salto de línea
+        getchar();
 
         switch (opcion) {
             case 1:
-                // Aquí debería crearse o inicializarse el jugador
-                printf("Iniciando partida...\n");
-                presioneTeclaParaContinuar();
-                // Por ahora solo volver al menú para ejemplo
+                jugarBlackjack(j);
                 break;
             case 2:
-                printf("Mostrando ranking (no implementado aún)...\n");
-                presioneTeclaParaContinuar();
+                jugarRuleta(j);
                 break;
             case 3:
-                printf("Gracias por jugar. Hasta luego.\n");
+                jugarApuestasDeportivas(j);
                 break;
+            case 0:
+                return;
             default:
-                printf("Opción inválida. Intente nuevamente.\n");
+                printf("Opción inválida.\n");
                 presioneTeclaParaContinuar();
+                break;
         }
-    } while (opcion != 3);
+    } while (opcion != 0);
 }
 
-void menu_principal(Jugador *j) {
-    int opcion = 0;
+// Menú de bonificaciones
+void menu_bonificadores(Jugador *j) {
+    int opcion;
     do {
         limpiarPantalla();
-        printf("===== Menú Principal =====\n");
-        printf("Jugador: %s\n", j->nombre);
-        printf("Dinero actual: %.2f\n", j->dinero);
-        printf("1. Jugar\n");
-        printf("2. Bonificadores\n");
-        printf("3. Salir a menú inicial\n");
+        printf("=== Menú de Bonificadores ===\n");
+        printf("1. Mostrar bonificadores activos\n");
+        printf("2. Activar bonificador\n");
+        printf("3. Desactivar bonificador\n");
+        printf("0. Volver\n");
+        printf("Seleccione una opción: ");
+        scanf("%d", &opcion);
+        getchar();
+
+        switch (opcion) {
+            case 1:
+            case 2:
+            case 3:
+                mostrarBonificadores(j);
+                break;
+            case 0:
+                return;
+            default:
+                printf("Opción inválida.\n");
+                presioneTeclaParaContinuar();
+                break;
+        }
+    } while (opcion != 0);
+}
+
+// Menú principal de la aplicación
+void menu_principal(Jugador *j) {
+    int opcion;
+    do {
+        limpiarPantalla();
+        printf("=== Menú Principal ===\n");
+        printf("1. Iniciar Juego\n");
+        printf("2. Ver Ranking (pendiente)\n");
+        printf("3. Bonificadores\n");
+        printf("0. Salir\n");
         printf("Seleccione una opción: ");
         scanf("%d", &opcion);
         getchar();
@@ -68,84 +207,55 @@ void menu_principal(Jugador *j) {
                 menu_juego(j);
                 break;
             case 2:
+                printf("Ranking aún no implementado.\n");
+                presioneTeclaParaContinuar();
+                break;
+            case 3:
                 menu_bonificadores(j);
                 break;
-            case 3:
-                printf("Volviendo al menú inicial...\n");
+            case 0:
+                printf("Gracias por jugar.\n");
+                return;
+            default:
+                printf("Opción inválida.\n");
                 presioneTeclaParaContinuar();
                 break;
-            default:
-                printf("Opción inválida. Intente nuevamente.\n");
-                presioneTeclaParaContinuar();
         }
-    } while (opcion != 3);
+    } while (opcion != 0);
 }
 
-void menu_juego(Jugador *j) {
-    int opcion = 0;
-    do {
-        limpiarPantalla();
-        printf("===== Menú de Juegos =====\n");
-        printf("1. Blackjack\n");
-        printf("2. Ruleta\n");
-        printf("3. Apuestas Deportivas\n");
-        printf("4. Volver al menú principal\n");
-        printf("Seleccione una opción: ");
-        scanf("%d", &opcion);
-        getchar();
+// Menú de inicio (login o nueva partida)
+void menu_inicio() {
+    limpiarPantalla();
+    printf("=== Bienvenido al Casino ===\n");
+    printf("1. Iniciar Partida\n");
+    printf("2. Ver Ranking (pendiente)\n");
+    printf("3. Salir\n");
+    printf("Seleccione una opción: ");
 
-        switch (opcion) {
-            case 1:
-                printf("Iniciando Blackjack (no implementado aún)...\n");
-                presioneTeclaParaContinuar();
-                break;
-            case 2:
-                printf("Iniciando Ruleta (no implementado aún)...\n");
-                presioneTeclaParaContinuar();
-                break;
-            case 3:
-                printf("Iniciando Apuestas Deportivas (no implementado aún)...\n");
-                presioneTeclaParaContinuar();
-                break;
-            case 4:
-                printf("Volviendo al menú principal...\n");
-                presioneTeclaParaContinuar();
-                break;
-            default:
-                printf("Opción inválida. Intente nuevamente.\n");
-                presioneTeclaParaContinuar();
-        }
-    } while (opcion != 4);
-}
+    int opcion;
+    scanf("%d", &opcion);
+    getchar();
 
-void menu_bonificadores(Jugador *j) {
-    int opcion = 0;
-    do {
-        limpiarPantalla();
-        printf("===== Menú de Bonificadores =====\n");
-        printf("1. Comprar bonificador\n");
-        printf("2. Usar bonificador\n");
-        printf("3. Volver al menú principal\n");
-        printf("Seleccione una opción: ");
-        scanf("%d", &opcion);
-        getchar();
+    Jugador jugador;
+    inicializarJugador(&jugador);
 
-        switch (opcion) {
-            case 1:
-                printf("Comprar bonificador (no implementado aún)...\n");
-                presioneTeclaParaContinuar();
-                break;
-            case 2:
-                printf("Usar bonificador (no implementado aún)...\n");
-                presioneTeclaParaContinuar();
-                break;
-            case 3:
-                printf("Volviendo al menú principal...\n");
-                presioneTeclaParaContinuar();
-                break;
-            default:
-                printf("Opción inválida. Intente nuevamente.\n");
-                presioneTeclaParaContinuar();
-        }
-    } while (opcion != 3);
+    switch (opcion) {
+        case 1:
+            menu_principal(&jugador);
+            break;
+        case 2:
+            printf("Ranking aún no implementado.\n");
+            presioneTeclaParaContinuar();
+            menu_inicio();
+            break;
+        case 3:
+            printf("Gracias por visitar el Casino.\n");
+            exit(0);
+        default:
+            printf("Opción inválida.\n");
+            presioneTeclaParaContinuar();
+            menu_inicio();
+            break;
+    }
 }
