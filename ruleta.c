@@ -44,5 +44,5 @@ double calcularPago(Apuesta* apuesta, CasillaRuleta ruleta[], int resultado, dou
         default:
             break;
     }
-    return 0.0;
+    return 0;
 }
