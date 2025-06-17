@@ -58,7 +58,7 @@ void jugarApuestaDeportiva(Jugador* jugador, Map* equipos) {
     }
 
      // Probabilidad de ganar basada en el inverso del multiplicador
-    float probabilidad_ganar = 1.0f / (*mult); // Ej: x2.0 => 50%, x3.0 => 33.3%
+    float probabilidad_ganar = 1.0f / (*mult); 
     float chance = (float)rand() / RAND_MAX;
     int gana = (chance < probabilidad_ganar);
 
