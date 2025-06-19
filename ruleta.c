@@ -48,5 +48,5 @@ double calcularPago(Apuesta* apuesta, CasillaRuleta ruleta[], int resultado, Jug
             break;
     }
 
-    return 0.0;
+    return 0;
 }
