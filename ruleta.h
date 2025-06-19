@@ -13,14 +13,14 @@ typedef struct {
 typedef enum {
     APUESTA_NUMERO,
     APUESTA_COLOR,
-    APUESTA_RANGO
+    APUESTA_TERCIO
 } TipoApuesta;
 
 typedef struct {
     TipoApuesta tipo;
     int numero; // Para APUESTA_NUMERO
     Color color; // Para APUESTA_COLOR
-    int rango_inicio, rango_fin; // Para APUESTA_RANGO
+    int tercio_inicio, tercio_fin; // Para APUESTA_TERCIO
     double cantidad; // Monto apostado
 } Apuesta;
 

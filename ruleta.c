@@ -35,8 +35,8 @@ double calcularPago(Apuesta* apuesta, CasillaRuleta ruleta[], int resultado, dou
             }
             break;
 
-        case APUESTA_RANGO:
-            if (resultado >= apuesta->rango_inicio && resultado <= apuesta->rango_fin) {
+        case APUESTA_TERCIO:
+            if (resultado >= apuesta->tercio_inicio && resultado <= apuesta->tercio_fin) {
                 return apuesta->cantidad * 3 * bonificador;
             }
             break;
