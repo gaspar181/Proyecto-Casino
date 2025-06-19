@@ -7,7 +7,7 @@ typedef struct {
     char nombre[MAX_NOMBRE];
     double saldo;               // Dinero con el que empieza y juega el jugador
     int turnos_jugados;         // Cantidad de turnos que ha jugado
-    double multiplicador_actual; // Multiplicador activo por bonificadores
+    float multiplicador_actual; // Multiplicador activo por bonificadores
 } Jugador;
 
 // Función para inicializar el jugador con nombre y saldo inicial según opción

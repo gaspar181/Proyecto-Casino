@@ -1,7 +1,7 @@
 #ifndef APUESTAS_H
 #define APUESTAS_H
 
-#include "map.h"
+#include "TDAS/map.h"
 #include "jugador.h"
 
 // Inicializa el mapa de equipos deportivos con multiplicadores aleatorios
