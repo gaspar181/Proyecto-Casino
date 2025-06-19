@@ -91,7 +91,7 @@ void jugarBlackjack(Jugador *j) {
 
         if (puntaje > 21) {
             printf("Te pasaste. Pierdes esta ronda.\n");
-            j->saldo -= 10; // pérdida simbólica
+            j->saldo -= 10; // por mientras
             break;
         }
 
@@ -103,7 +103,7 @@ void jugarBlackjack(Jugador *j) {
             else
                 printf("Te plantaste con %d.\n", puntaje);
 
-            j->saldo += 10; // ganancia simbólica
+            j->saldo += 10; // por mientras
             break;
         }
     }
