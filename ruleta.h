@@ -1,5 +1,6 @@
 #ifndef RULETA_H
 #define RULETA_H
+#include "jugador.h"
 
 #define TOTAL_CASILLAS 37
 
@@ -24,17 +25,9 @@ typedef struct {
     double cantidad; // Monto apostado
 } Apuesta;
 
-typedef struct {
-    char nombre[50];
-    double saldo;
-    double saldo_inicial;
-    int turnos_jugados;
-    int puede_retirarse; // 0 o 1
-    // bonificador, si implementan más adelante
-} Jugador;
 
 void inicializarRuleta(CasillaRuleta ruleta[]);
 int girarRuleta();
-double calcularPago(Apuesta* apuesta, CasillaRuleta ruleta[], int resultado, double bonificador);
+double calcularPago(Apuesta* apuesta, CasillaRuleta ruleta[], int resultado, Jugador *j);
 
 #endif

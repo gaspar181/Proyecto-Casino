@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include "ruleta.h"
+#include "jugador.h"  
 
 void inicializarRuleta(CasillaRuleta ruleta[]) {
     for (int i = 0; i < TOTAL_CASILLAS; i++) {
@@ -17,32 +18,35 @@ void inicializarRuleta(CasillaRuleta ruleta[]) {
 }
 
 int girarRuleta() {
-    srand((unsigned)time(NULL));
+    srand((unsigned)time(NULL)); // idealmente llamar esto solo 1 vez al inicio del main
     return rand() % TOTAL_CASILLAS;
 }
 
-double calcularPago(Apuesta* apuesta, CasillaRuleta ruleta[], int resultado, double bonificador) {
+double calcularPago(Apuesta* apuesta, CasillaRuleta ruleta[], int resultado, Jugador* j) {
+    double multiplicador = j->multiplicador_actual;
+    
     switch (apuesta->tipo) {
         case APUESTA_NUMERO:
             if (apuesta->numero == resultado) {
-                return apuesta->cantidad * 36 * bonificador;
+                return apuesta->cantidad * 36 * multiplicador;
             }
             break;
 
         case APUESTA_COLOR:
             if (ruleta[resultado].color == apuesta->color) {
-                return apuesta->cantidad * 2 * bonificador;
+                return apuesta->cantidad * 2 * multiplicador;
             }
             break;
 
         case APUESTA_TERCIO:
             if (resultado >= apuesta->tercio_inicio && resultado <= apuesta->tercio_fin) {
-                return apuesta->cantidad * 3 * bonificador;
+                return apuesta->cantidad * 3 * multiplicador;
             }
             break;
 
         default:
             break;
     }
-    return 0;
+
+    return 0.0;
 }
