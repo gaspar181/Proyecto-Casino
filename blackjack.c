@@ -62,6 +62,20 @@ int obtenerValorCarta(Carta *c) {
 void jugarBlackjack(Jugador *j) {
     printf("=== BLACKJACK ===\n");
 
+    if (j->saldo <= 0) {
+        printf("No tienes dinero para jugar.\n");
+        return;
+    }
+
+    double apuesta;
+    printf("Ingrese la cantidad a apostar: ");
+    scanf("%lf", &apuesta);
+
+    if (apuesta <= 0 || apuesta > j->saldo) {
+        printf("Apuesta inválida. Tu saldo es %.2f\n", j->saldo);
+        return;
+    }
+
     Stack *mazo = generarMazo();
     int puntaje = 0;
     char opcion;
@@ -91,19 +105,23 @@ void jugarBlackjack(Jugador *j) {
 
         if (puntaje > 21) {
             printf("Te pasaste. Pierdes esta ronda.\n");
-            j->saldo -= 10; // por mientras
+            double perdida = apuesta * j->multiplicador_actual;
+            j->saldo -= perdida;
+            printf("Perdiste %.2f. Saldo actual: %.2f\n", perdida, j->saldo);
             break;
         }
 
-        printf("¿Quieres otra carta? (s/n): ");
+        printf("¿Deseas otra carta? (s/n): ");
         scanf(" %c", &opcion);
         if (opcion == 'n' || opcion == 'N') {
             if (puntaje == 21)
                 printf("¡Blackjack!\n");
             else
-                printf("Te plantaste con %d.\n", puntaje);
+                printf("Te plantaste con %d puntos.\n", puntaje);
 
-            j->saldo += 10; // por mientras
+            double ganancia = apuesta * j->multiplicador_actual;
+            j->saldo += ganancia;
+            printf("Ganaste %.2f. Saldo actual: %.2f\n", ganancia, j->saldo);
             break;
         }
     }
