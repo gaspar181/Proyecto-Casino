@@ -123,7 +123,7 @@ void jugarBlackjack(Jugador *j) {
     // Simular turno del dealer
     int dealer = 0, ases_d = 0;
     printf("\nMi turno waton, se te viene pesado\n");
-    while (dealer < 17) {
+    while (dealer < 17 || dealer < puntaje) {
         Carta *carta = stack_pop(mazo);
         if (!carta) {
             mazo = generarMazo();
