@@ -8,11 +8,12 @@
 // Menú principal de juegos
 void menu_juego(Jugador *j) {
     if (j->saldo <= 0) {
-        printf("¡Ya fue po! Al casino nunca se le gana, compadre...\n");
+        printf("¡Ya fue po! Al casino nunca se le gana, mi xan...\n");
         printf("Andate pa’ la casa con las manos vacías y vuelve cuando tengas plata.\n");
         presioneTeclaParaContinuar();
-        return; // Salir del menú de juegos
+        return;
     }
+
     int opcion;
     do {
         limpiarPantalla();
@@ -20,7 +21,8 @@ void menu_juego(Jugador *j) {
         printf("1. Blackjack\n");
         printf("2. Ruleta\n");
         printf("3. Apuestas Deportivas\n");
-        printf("0. Volver\n");
+        printf("4. Bonificadores\n");
+        printf("0. Salir del casino\n");
         printf("Seleccione una opción: ");
         scanf("%d", &opcion);
         getchar();
@@ -28,22 +30,37 @@ void menu_juego(Jugador *j) {
         switch (opcion) {
             case 1:
                 jugarBlackjack(j);
+                menu_bonificadores(j);
                 break;
             case 2:
                 jugarRuleta(j);
+                menu_bonificadores(j);
                 break;
             case 3:
                 jugarApuestasDeportivas(j);
+                menu_bonificadores(j);
+                break;
+            case 4:
+                menu_bonificadores(j);
                 break;
             case 0:
-                return;
+                if (j->turnos_jugados >= j->turnos_jugados) {
+                    printf("Gracias por visitarnos, que te vaya bonito compadrito.\n");
+                    exit(0);
+                } else {
+                    printf("¡Oye no po! Aún no cumplís los %d turnos mínimos.\n", j->turnos_jugados);
+                    printf("¡No se arranca del casino tan fácil!\n");
+                    presioneTeclaParaContinuar();
+                }
+                break;
             default:
                 printf("Opción inválida.\n");
                 presioneTeclaParaContinuar();
                 break;
         }
-    } while (opcion != 0);
+    } while (1);
 }
+
 
 // Menú de bonificaciones
 void menu_bonificadores(Jugador *j) {
