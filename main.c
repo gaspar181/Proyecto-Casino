@@ -13,7 +13,7 @@ int main() {
     limpiarPantalla();
 
     Jugador jugador;
-    crearJugador(&jugador); 
+    inicializarJugador(&jugador); 
 
     inicializarBonificadores();
 
