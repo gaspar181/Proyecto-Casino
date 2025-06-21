@@ -4,7 +4,7 @@
 
 #include "menu.h"
 #include "jugador.h"
-#include "bonificadores.h"
+#include "bonos.h"
 
 int main() {
     srand(time(NULL)); // Inicializa números aleatorios

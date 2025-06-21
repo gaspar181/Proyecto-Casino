@@ -3,11 +3,14 @@
 
 #define MAX_NOMBRE 50
 
+#include "bonos.h"
+
 typedef struct {
     char nombre[MAX_NOMBRE];
-    double saldo;               // Dinero con el que empieza y juega el jugador
-    int turnos_jugados;         // Cantidad de turnos que ha jugado
-    float multiplicador_actual; // Multiplicador activo por bonificadores
+    double saldo;
+    int turnos_jugados;
+    float multiplicador_actual;
+    Bonificador ultimo_bonificador;  
 } Jugador;
 
 // Función para inicializar el jugador con nombre y saldo inicial según opción
