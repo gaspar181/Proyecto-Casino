@@ -5,6 +5,8 @@
 #include "utils.h"
 #include <time.h>
 
+#define TURNOS_MINIMOS 20
+
 // Menú principal de juegos
 void menu_juego(Jugador *j) {
     if (j->saldo <= 0) {
@@ -44,7 +46,7 @@ void menu_juego(Jugador *j) {
                 menu_bonificadores(j);
                 break;
             case 0:
-                if (j->turnos_jugados >= j->turnos_jugados) {
+                if (j->turnos_jugados >= TURNOS_MINIMOS) {
                     guardarRanking(&j);
                     printf("Gracias por visitarnos, que te vaya bonito compadrito.\n");
                     exit(0);
