@@ -45,6 +45,7 @@ void menu_juego(Jugador *j) {
                 break;
             case 0:
                 if (j->turnos_jugados >= j->turnos_jugados) {
+                    guardarRanking(&j);
                     printf("Gracias por visitarnos, que te vaya bonito compadrito.\n");
                     exit(0);
                 } else {
@@ -115,7 +116,7 @@ void menu_inicio() {
     limpiarPantalla();
     printf("=== Bienvenido al Casino ===\n");
     printf("1. Iniciar Partida\n");
-    printf("2. Ver Ranking (pendiente)\n");
+    printf("2. Ver Ranking\n");
     printf("3. Salir\n");
     printf("Seleccione una opción: ");
 
@@ -131,7 +132,7 @@ void menu_inicio() {
             menu_principal(&jugador);
             break;
         case 2:
-            printf("Ranking aún no implementado.\n");
+            mostrarRanking();
             presioneTeclaParaContinuar();
             menu_inicio();
             break;
