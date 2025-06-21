@@ -1,9 +1,9 @@
 #ifndef BONOS_H
 #define BONOS_H
 
-#include "jugador.h"
-
 #define MAX_NOMBRE_BONIFICADOR 50
+
+struct Jugador;
 
 typedef enum {
     BUENO,
@@ -19,7 +19,7 @@ typedef enum {
     CAMBIO_SALDO_ALEATORIO
 } EfectoBonificador;
 
-typedef struct {
+typedef struct Bonificador{
     char nombre[MAX_NOMBRE_BONIFICADOR];
     TipoBonificador tipo;
     EfectoBonificador efecto;
@@ -28,7 +28,7 @@ typedef struct {
 
 void inicializarBonificadores();
 Bonificador seleccionarBonificadorAleatorio();
-void aplicarBonificador(Bonificador b, Jugador *j);
+void aplicarBonificador(Bonificador b, struct Jugador *j);
 void mostrarBonificador(Bonificador b);
 
 #endif

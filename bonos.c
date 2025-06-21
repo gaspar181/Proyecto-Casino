@@ -3,6 +3,7 @@
 #include <string.h>
 #include <time.h>
 #include "bonos.h"
+#include "jugador.h"
 
 #define TOTAL_BONIFICADORES 10
 

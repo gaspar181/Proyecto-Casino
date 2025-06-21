@@ -3,6 +3,7 @@
 #include <string.h>
 #include <time.h>
 #include "blackjack.h"
+#include "utils.h" 
 
 // Función de comparación para mapa ordenado
 int ordenar(void *a, void *b) {

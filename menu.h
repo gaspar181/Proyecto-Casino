@@ -5,7 +5,6 @@
 
 // Menús principales
 void menu_inicio();
-void menu_principal(Jugador *j);
 void menu_juego(Jugador *j);
 void menu_bonificadores(Jugador *j);
 

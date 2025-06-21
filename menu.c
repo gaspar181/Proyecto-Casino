@@ -4,14 +4,18 @@
 #include "ruleta.h"
 #include "utils.h"
 #include <time.h>
+#include "bonos.h"
+#include "jugador.h"
+#include "ranking.h"
 
 #define TURNOS_MINIMOS 20
 
-// Menú principal de juegos
 void menu_juego(Jugador *j) {
     if (j->saldo <= 0) {
         printf("¡Ya fue po! Al casino nunca se le gana, mi xan...\n");
         printf("Andate pa’ la casa con las manos vacías y vuelve cuando tengas plata.\n");
+        guardarRanking(j);
+        menu_inicio(&j);
         presioneTeclaParaContinuar();
         return;
     }
@@ -32,22 +36,19 @@ void menu_juego(Jugador *j) {
         switch (opcion) {
             case 1:
                 jugarBlackjack(j);
-                menu_bonificadores(j);
                 break;
             case 2:
                 jugarRuleta(j);
-                menu_bonificadores(j);
                 break;
             case 3:
                 jugarApuestasDeportivas(j);
-                menu_bonificadores(j);
                 break;
             case 4:
                 menu_bonificadores(j);
                 break;
             case 0:
                 if (j->turnos_jugados >= TURNOS_MINIMOS) {
-                    guardarRanking(&j);
+                    guardarRanking(j);
                     printf("Gracias por visitarnos, que te vaya bonito compadrito.\n");
                     exit(0);
                 } else {
@@ -89,7 +90,7 @@ void menu_bonificadores(Jugador *j) {
                 Bonificador nuevo = seleccionarBonificadorAleatorio();
                 mostrarBonificador(nuevo);
                 aplicarBonificador(nuevo, j);
-                j->ultimo_bonificador = nuevo; // si lo guardas
+                j->ultimo_bonificador = nuevo;
                 presioneTeclaParaContinuar();
                 break;
             }
@@ -131,7 +132,7 @@ void menu_inicio() {
 
     switch (opcion) {
         case 1:
-            menu_principal(&jugador);
+            menu_juego(&jugador);
             break;
         case 2:
             mostrarRanking();

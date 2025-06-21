@@ -12,15 +12,9 @@ int main() {
 
     limpiarPantalla();
 
-    Jugador jugador;
-    inicializarJugador(&jugador); 
-
-    inicializarBonificadores();
-
-    menu_inicio(&jugador); // <-- Ahora pasa el puntero al jugador
+    menu_inicio(); // <-- Ahora pasa el puntero al jugador
 
     limpiarPantalla();
-    printf("Gracias por jugar, %s. ¡Vuelve pronto al casino!\n", jugador.nombre);
 
     return 0;
 }

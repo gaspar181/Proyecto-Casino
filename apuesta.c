@@ -4,6 +4,7 @@
 #include <time.h>
 #include "TDAS/map.h"
 #include "jugador.h"
+#include "utils.h" 
 
 int cmp_strings(void *a, void *b) {
     return strcmp((char *)a, (char *)b) == 0;

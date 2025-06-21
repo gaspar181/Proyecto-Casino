@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "jugador.h"
+#include "bonos.h"
 
 void inicializarJugador(Jugador *j) {
     printf("¡Bienvenido al Casino Virtual!\n");
