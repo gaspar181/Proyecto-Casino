@@ -60,6 +60,12 @@ int obtenerValorCarta(Carta *c) {
 
 // Jugar una partida simple de blackjack
 void jugarBlackjack(Jugador *j) {
+    if (j->saldo <= 0) {
+    printf("Oye, no tienes ni un peso para apostar en Blackjack...\n");
+    printf("Vuelve cuando traigas plata, compadre.\n");
+    presioneTeclaParaContinuar();
+    return;
+    }
     printf("=== BLACKJACK ===\n");
 
     if (j->saldo <= 0) {

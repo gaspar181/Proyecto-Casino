@@ -7,6 +7,12 @@
 
 // Menú principal de juegos
 void menu_juego(Jugador *j) {
+    if (j->saldo <= 0) {
+        printf("¡Ya fue po! Al casino nunca se le gana, compadre...\n");
+        printf("Andate pa’ la casa con las manos vacías y vuelve cuando tengas plata.\n");
+        presioneTeclaParaContinuar();
+        return; // Salir del menú de juegos
+    }
     int opcion;
     do {
         limpiarPantalla();
