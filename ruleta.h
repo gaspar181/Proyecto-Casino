@@ -9,11 +9,11 @@ typedef enum {
     VERDE = 0,
     ROJO = 1,
     NEGRO = 2
-} ColorRuleta; // Renombrado para evitar conflictos
+} Color;
 
 typedef struct {
     int numero;
-    ColorRuleta color;
+    Color color;
 } CasillaRuleta;
 
 typedef enum {
@@ -26,7 +26,7 @@ typedef struct {
     TipoApuesta tipo;
     double cantidad;
     int numero;         // para apuesta por número
-    ColorRuleta color;  // para apuesta por color
+    Color color;        // para apuesta por color (ahora incluye VERDE)
     int tercio_inicio;  // para apuesta por rango
     int tercio_fin;
 } Apuesta;
@@ -37,6 +37,5 @@ double calcularPago(Apuesta* apuesta, CasillaRuleta ruleta[], int resultado, Jug
 double calcularPagosMultiples(Apuesta apuestas[], int cantidad, CasillaRuleta ruleta[], int resultado, Jugador* j);
 int ingresarApuestas(Apuesta apuestas[], int max, Jugador* jugador);
 void jugarRuleta(Jugador *j);
-void mostrarResumenApuestas(Apuesta apuestas[], int cantidad); // solo si la usas fuera de ruleta.c
 
 #endif

@@ -12,7 +12,7 @@ int main() {
 
     limpiarPantalla();
 
-    menu_inicio(); // <-- Ahora pasa el puntero al jugador
+    menu_inicio(); 
 
     limpiarPantalla();
 
