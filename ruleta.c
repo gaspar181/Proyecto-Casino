@@ -2,51 +2,159 @@
 #include <stdlib.h>
 #include <time.h>
 #include "ruleta.h"
-#include "jugador.h"  
+#include "jugador.h"
+#include "utils.h"  // Para limpiar pantalla y pausar
 
 void inicializarRuleta(CasillaRuleta ruleta[]) {
     for (int i = 0; i < TOTAL_CASILLAS; i++) {
         ruleta[i].numero = i;
-        if (i == 0) {
-            ruleta[i].color = VERDE;
-        } else if ((i >= 1 && i <= 10) || (i >= 19 && i <= 28)) {
+        if (i == 0) ruleta[i].color = VERDE;
+        else if ((i >= 1 && i <= 10) || (i >= 19 && i <= 28))
             ruleta[i].color = (i % 2 == 0) ? NEGRO : ROJO;
-        } else {
+        else
             ruleta[i].color = (i % 2 == 0) ? ROJO : NEGRO;
-        }
     }
 }
 
 int girarRuleta() {
-    srand((unsigned)time(NULL)); // idealmente llamar esto solo 1 vez al inicio del main
+    // srand solo en main
     return rand() % TOTAL_CASILLAS;
 }
 
 double calcularPago(Apuesta* apuesta, CasillaRuleta ruleta[], int resultado, Jugador* j) {
-    double multiplicador = j->multiplicador_actual;
-    
+    double m = j->multiplicador_actual;
     switch (apuesta->tipo) {
         case APUESTA_NUMERO:
-            if (apuesta->numero == resultado) {
-                return apuesta->cantidad * 36 * multiplicador;
-            }
-            break;
+            return (apuesta->numero == resultado) ? apuesta->cantidad * 36 * m : 0;
 
         case APUESTA_COLOR:
-            if (ruleta[resultado].color == apuesta->color) {
-                return apuesta->cantidad * 2 * multiplicador;
+            if (apuesta->color == VERDE) {
+                // Pago típico para apostar al verde (0) es 17:1
+                return (ruleta[resultado].color == VERDE) ? apuesta->cantidad * 17 * m : 0;
+            } else {
+                // Rojo o Negro pagan 2:1 (doble apuesta)
+                return (ruleta[resultado].color == apuesta->color) ? apuesta->cantidad * 2 * m : 0;
             }
-            break;
 
         case APUESTA_TERCIO:
-            if (resultado >= apuesta->tercio_inicio && resultado <= apuesta->tercio_fin) {
-                return apuesta->cantidad * 3 * multiplicador;
-            }
-            break;
+            return (resultado >= apuesta->tercio_inicio && resultado <= apuesta->tercio_fin) ? apuesta->cantidad * 3 * m : 0;
 
         default:
-            break;
+            return 0;
+    }
+}
+
+double calcularPagosMultiples(Apuesta apuestas[], int cantidad, CasillaRuleta ruleta[], int resultado, Jugador* j) {
+    double total = 0;
+    for (int i = 0; i < cantidad; i++) {
+        total += calcularPago(&apuestas[i], ruleta, resultado, j);
+    }
+    return total;
+}
+
+int ingresarApuestas(Apuesta apuestas[], int max, Jugador* jugador) {
+    int count = 0;
+    double total_apostado = 0;
+
+    printf("\nSaldo disponible: %.2f\n", jugador->saldo);
+
+    while (count < max) {
+        int tipo;
+        printf("\n--- Apuesta #%d ---\n", count + 1);
+        printf("Tipo de apuesta:\n1. Número\n2. Color\n3. Tercio\n0. Terminar\nOpción: ");
+        scanf("%d", &tipo);
+
+        if (tipo == 0) break;
+
+        if (tipo < 1 || tipo > 3) {
+            printf("Opción inválida.\n");
+            continue;
+        }
+
+        Apuesta a;
+        a.tipo = tipo - 1;
+
+        printf("Ingrese cantidad a apostar: ");
+        scanf("%lf", &a.cantidad);
+
+        if (a.cantidad <= 0 || total_apostado + a.cantidad > jugador->saldo) {
+            printf("Monto inválido o excede el saldo restante.\n");
+            continue;
+        }
+
+        switch (a.tipo) {
+            case APUESTA_NUMERO:
+                printf("Ingrese número entre 0 y 36: ");
+                scanf("%d", &a.numero);
+                if (a.numero < 0 || a.numero > 36) {
+                    printf("Número inválido.\n");
+                    continue;
+                }
+                break;
+
+            case APUESTA_COLOR:
+                printf("Ingrese color (0 = VERDE, 1 = ROJO, 2 = NEGRO): ");
+                int c;
+                scanf("%d", &c);
+                if (c < VERDE || c > NEGRO) {
+                    printf("Color inválido.\n");
+                    continue;
+                }
+                a.color = (Color)c;
+                break;
+
+            case APUESTA_TERCIO:
+                printf("Ingrese inicio del tercio (ej: 1), y fin del tercio (ej: 12): ");
+                scanf("%d %d", &a.tercio_inicio, &a.tercio_fin);
+                if (a.tercio_inicio < 1 || a.tercio_fin > 36 || a.tercio_inicio >= a.tercio_fin) {
+                    printf("Tercio inválido.\n");
+                    continue;
+                }
+                break;
+        }
+
+        apuestas[count++] = a;
+        total_apostado += a.cantidad;
+        printf("Total apostado: %.2f / %.2f\n", total_apostado, jugador->saldo);
     }
 
-    return 0;
+    jugador->saldo -= total_apostado;
+    return count;
+}
+
+void jugarRuleta(Jugador *j) {
+    CasillaRuleta ruleta[TOTAL_CASILLAS];
+    inicializarRuleta(ruleta);
+
+    const int MAX_APUESTAS = 10;
+    Apuesta apuestas[MAX_APUESTAS];
+    int cantidad_apuestas;
+
+    limpiarPantalla();
+    printf("=== Juego Ruleta ===\n");
+
+    cantidad_apuestas = ingresarApuestas(apuestas, MAX_APUESTAS, j);
+    if (cantidad_apuestas == 0) {
+        printf("No ingresaste apuestas. Volviendo al menú.\n");
+        presioneTeclaParaContinuar();
+        return;
+    }
+
+    int resultado = girarRuleta();
+
+    printf("La ruleta giró y cayó en el número %d de color %s.\n", resultado,
+           (ruleta[resultado].color == ROJO) ? "ROJO" :
+           (ruleta[resultado].color == NEGRO) ? "NEGRO" :
+           "VERDE");
+
+    double ganancia = calcularPagosMultiples(apuestas, cantidad_apuestas, ruleta, resultado, j);
+    if (ganancia > 0) {
+        printf("¡Ganaste $%.2f!\n", ganancia);
+        j->saldo += ganancia;
+    } else {
+        printf("No ganaste esta vez.\n");
+    }
+
+    j->turnos_jugados++;
+    presioneTeclaParaContinuar();
 }
