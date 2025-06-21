@@ -123,6 +123,12 @@ int ingresarApuestas(Apuesta apuestas[], int max, Jugador* jugador) {
 }
 
 void jugarRuleta(Jugador *j) {
+    if (j->saldo <= 0) {
+        printf("Amigo su cuenta está en 0, vaya a laburar!!!\n");
+        printf("Vuelve con dinero, apuesta de manera responsable.\n");
+        presioneTeclaParaContinuar();
+        return;
+    }
     CasillaRuleta ruleta[TOTAL_CASILLAS];
     inicializarRuleta(ruleta);
 
