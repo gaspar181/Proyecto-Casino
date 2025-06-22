@@ -51,6 +51,10 @@ void menu_juego(Jugador *j) {
                     guardarRanking(j);
                     printf("Gracias por visitarnos, que te vaya bonito compadrito.\n");
                     exit(0);
+                } else if(j->saldo <= 0){
+                    guardarRanking(j);
+                    printf("Más suerte la proxima vez, cuide su dinero y juegue de manera responsable.\n");
+                    exit(0);
                 } else {
                     int falta = 20 - j->turnos_jugados;
                     printf("¡Oye no po! Aún no cumplís los turnos mínimos. Te faltan %d\n", falta);
