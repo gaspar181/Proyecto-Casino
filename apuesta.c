@@ -51,7 +51,7 @@ void inicializarEquipos(Map* mapa) {
     };
 
     int totalEquipos = sizeof(equipos) / sizeof(equipos[0]);
-    srand((unsigned)time(NULL));
+    //srand((unsigned)time(NULL));
 
     for (int i = 0; i < totalEquipos; i++) {
         char* nombreEquipo = strdup(equipos[i].nombre);

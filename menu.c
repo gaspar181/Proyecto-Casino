@@ -117,6 +117,8 @@ void menu_bonificadores(Jugador *j) {
 
 // Menú de inicio (login o nueva partida)
 void menu_inicio() {
+    srand(time(NULL));
+    inicializarBonificadores();
     limpiarPantalla();
     printf("=== Bienvenido al Casino ===\n");
     printf("1. Iniciar Partida\n");

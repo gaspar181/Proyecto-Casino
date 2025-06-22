@@ -10,7 +10,6 @@
 static Bonificador bonificadores[TOTAL_BONIFICADORES];
 
 void inicializarBonificadores() {
-    srand(time(NULL));
 
     strcpy(bonificadores[0].nombre, "Piscola brígida");
     bonificadores[0].tipo = BUENO;
