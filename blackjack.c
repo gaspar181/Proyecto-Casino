@@ -74,7 +74,7 @@ void jugarBlackjack(Jugador *j) {
     printf("Ingrese la cantidad a apostar: ");
     scanf("%lf", &apuesta);
 
-    if (apuesta <= 0 || apuesta > j->saldo) {
+    if (apuesta == 0 || apuesta > j->saldo) {
         printf("Apuesta inválida. Tu saldo es %.2f\n", j->saldo);
         presioneTeclaParaContinuar();
         return;

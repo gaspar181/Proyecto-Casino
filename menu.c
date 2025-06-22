@@ -11,7 +11,7 @@
 #define TURNOS_MINIMOS 20
 
 void menu_juego(Jugador *j) {
-    if (j->saldo <= 0) {
+    if (j->saldo == 0) {
         printf("¡Ya fue po! Al casino nunca se le gana, mi xan...\n");
         printf("Andate pa’ la casa con las manos vacías y vuelve cuando tengas plata.\n");
         guardarRanking(j);
