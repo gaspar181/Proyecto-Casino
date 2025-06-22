@@ -159,7 +159,7 @@ void jugarBlackjack(Jugador *j) {
         printf("Empate. Se devuelve tu apuesta.\n");
         // saldo queda igual
     } else {
-        double perdida = apuesta * j->multiplicador_actual;
+        double perdida = apuesta;
         j->saldo -= perdida;
         printf("Perdiste %.2f. Saldo actual: %.2f\n", perdida, j->saldo);
     }
