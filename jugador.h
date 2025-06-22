@@ -10,7 +10,7 @@ typedef struct Jugador{
     double saldo;
     int turnos_jugados;
     float multiplicador_actual;
-    Bonificador ultimo_bonificador;;  
+    Bonificador ultimo_bonificador; 
 } Jugador;
 
 // Función para inicializar el jugador con nombre y saldo inicial según opción
