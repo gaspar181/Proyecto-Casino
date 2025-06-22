@@ -18,56 +18,52 @@ void menu_juego(Jugador *j) {
         menu_inicio(&j);
         presioneTeclaParaContinuar();
         return;
-    }
+    } else{
+        int opcion;
+        do {
+            limpiarPantalla();
+            printf("=== Menú de Juegos ===\n");
+            printf("1. Blackjack\n");
+            printf("2. Ruleta\n");
+            printf("3. Apuestas Deportivas\n");
+            printf("4. Bonificadores\n");
+            printf("0. Salir del casino\n");
+            printf("Seleccione una opción: ");
+            scanf("%d", &opcion);
+            getchar();
 
-    int opcion;
-    do {
-        limpiarPantalla();
-        printf("=== Menú de Juegos ===\n");
-        printf("1. Blackjack\n");
-        printf("2. Ruleta\n");
-        printf("3. Apuestas Deportivas\n");
-        printf("4. Bonificadores\n");
-        printf("0. Salir del casino\n");
-        printf("Seleccione una opción: ");
-        scanf("%d", &opcion);
-        getchar();
-
-        switch (opcion) {
-            case 1:
-                jugarBlackjack(j);
-                break;
-            case 2:
-                jugarRuleta(j);
-                break;
-            case 3:
-                jugarApuestasDeportivas(j);
-                break;
-            case 4:
-                menu_bonificadores(j);
-                break;
-            case 0:
-                if (j->turnos_jugados >= TURNOS_MINIMOS) {
-                    guardarRanking(j);
-                    printf("Gracias por visitarnos, que te vaya bonito compadrito.\n");
-                    exit(0);
-                } else if(j->saldo <= 0){
-                    guardarRanking(j);
-                    printf("Más suerte la proxima vez, cuide su dinero y juegue de manera responsable.\n");
-                    exit(0);
-                } else {
-                    int falta = 20 - j->turnos_jugados;
-                    printf("¡Oye no po! Aún no cumplís los turnos mínimos. Te faltan %d\n", falta);
-                    printf("¡No se arranca del casino tan fácil!\n");
+            switch (opcion) {
+                case 1:
+                    jugarBlackjack(j);
+                    break;
+                case 2:
+                    jugarRuleta(j);
+                    break;
+                case 3:
+                    jugarApuestasDeportivas(j);
+                    break;
+                case 4:
+                    menu_bonificadores(j);
+                    break;
+                case 0:
+                    if (j->turnos_jugados >= TURNOS_MINIMOS) {
+                        guardarRanking(j);
+                        printf("Gracias por visitarnos, que te vaya bonito compadrito.\n");
+                        exit(0);
+                    } else {
+                        int falta = 20 - j->turnos_jugados;
+                        printf("¡Oye no po! Aún no cumplís los turnos mínimos. Te faltan %d\n", falta);
+                        printf("¡No se arranca del casino tan fácil!\n");
+                        presioneTeclaParaContinuar();
+                    }
+                    break;
+                default:
+                    printf("Opción inválida.\n");
                     presioneTeclaParaContinuar();
-                }
-                break;
-            default:
-                printf("Opción inválida.\n");
-                presioneTeclaParaContinuar();
-                break;
-        }
-    } while (1);
+                    break;
+            }
+        } while (1);
+    }
 }
 
 

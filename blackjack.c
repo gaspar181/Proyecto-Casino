@@ -95,8 +95,11 @@ void jugarBlackjack(Jugador *j) {
 
         printf("Carta: %d de %s\n", carta->numero, carta->pinta);
         int valor = obtenerValorCarta(carta);
-        if (carta->numero == 1) ases++;
-        puntaje += valor;
+        if (carta->numero == 1) {
+            puntaje += 11;
+            ases++;
+        }
+        else puntaje += valor;
 
         while (puntaje > 21 && ases > 0) {
             puntaje -= 10;
@@ -132,8 +135,11 @@ void jugarBlackjack(Jugador *j) {
 
         printf("Ahora yo saco: %d de %s\n", carta->numero, carta->pinta);
         int val = obtenerValorCarta(carta);
-        if (carta->numero == 1) ases_d++;
-        dealer += val;
+        if (carta->numero == 1) {
+            dealer += 11;
+            ases_d++;
+        }
+        else dealer += val;
 
         while (dealer > 21 && ases_d > 0) {
             dealer -= 10;
