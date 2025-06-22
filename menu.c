@@ -52,7 +52,8 @@ void menu_juego(Jugador *j) {
                     printf("Gracias por visitarnos, que te vaya bonito compadrito.\n");
                     exit(0);
                 } else {
-                    printf("¡Oye no po! Aún no cumplís los %d turnos mínimos.\n", j->turnos_jugados);
+                    int falta = 20 - j->turnos_jugados;
+                    printf("¡Oye no po! Aún no cumplís los turnos mínimos. Te faltan %d\n", falta);
                     printf("¡No se arranca del casino tan fácil!\n");
                     presioneTeclaParaContinuar();
                 }
