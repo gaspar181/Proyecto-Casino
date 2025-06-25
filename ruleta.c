@@ -104,11 +104,29 @@ int ingresarApuestas(Apuesta apuestas[], int max, Jugador* jugador) {
                 break;
 
             case APUESTA_TERCIO:
-                printf("Ingrese inicio del tercio (ej: 1), y fin del tercio (ej: 12): ");
-                scanf("%d %d", &a.tercio_inicio, &a.tercio_fin);
-                if (a.tercio_inicio < 1 || a.tercio_fin > 36 || a.tercio_inicio >= a.tercio_fin) {
-                    printf("Tercio inválido.\n");
+                printf("Seleccione el tercio para apostar:\n");
+                printf("1. Del 1 al 12\n");
+                printf("2. Del 13 al 24\n");
+                printf("3. Del 25 al 36\n");
+                printf("Opción: ");
+                int opcion_tercio;
+                scanf("%d", &opcion_tercio);
+
+                if (opcion_tercio < 1 || opcion_tercio > 3) {
+                    printf("Opción de tercio inválida.\n");
                     continue;
+                }
+
+                // Asignar rangos según la opción
+                if (opcion_tercio == 1) {
+                    a.tercio_inicio = 1;
+                    a.tercio_fin = 12;
+                } else if (opcion_tercio == 2) {
+                    a.tercio_inicio = 13;
+                    a.tercio_fin = 24;
+                } else {
+                    a.tercio_inicio = 25;
+                    a.tercio_fin = 36;
                 }
                 break;
         }
@@ -123,12 +141,6 @@ int ingresarApuestas(Apuesta apuestas[], int max, Jugador* jugador) {
 }
 
 void jugarRuleta(Jugador *j) {
-    if (j->saldo <= 0) {
-        printf("Amigo su cuenta está en 0, vaya a laburar!!!\n");
-        printf("Vuelve con dinero, apuesta de manera responsable.\n");
-        presioneTeclaParaContinuar();
-        return;
-    }
     CasillaRuleta ruleta[TOTAL_CASILLAS];
     inicializarRuleta(ruleta);
 
