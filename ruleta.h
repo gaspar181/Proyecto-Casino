@@ -2,6 +2,7 @@
 #define RULETA_H
 
 #include "jugador.h"
+#include "list.h"  // Incluimos el TDA lista
 
 #define TOTAL_CASILLAS 37
 
@@ -31,22 +32,12 @@ typedef struct {
     int tercio_fin;
 } Apuesta;
 
-// Inicializa el arreglo de casillas de la ruleta
 void inicializarRuleta(CasillaRuleta ruleta[]);
-
-// Retorna un número aleatorio entre 0 y TOTAL_CASILLAS - 1, simulando giro ruleta
 int girarRuleta();
-
-// Calcula la ganancia para una apuesta específica según resultado y jugador
 double calcularPago(Apuesta* apuesta, CasillaRuleta ruleta[], int resultado, Jugador* j);
-
-// Calcula la ganancia total para múltiples apuestas (arreglo) según resultado y jugador
-double calcularPagosMultiples(Apuesta apuestas[], int cantidad, CasillaRuleta ruleta[], int resultado, Jugador* j);
-
-// Permite ingresar apuestas del jugador, hasta un máximo, y devuelve la cantidad de apuestas ingresadas
-int ingresarApuestas(Apuesta apuestas[], int max, Jugador* jugador);
-
-// Ejecuta el juego de ruleta para un jugador
+double calcularPagosMultiples(List *apuestas, CasillaRuleta ruleta[], int resultado, Jugador* j);
+List *ingresarApuestas(Jugador* jugador);
+void limpiarApuestas(List *apuestas);
 void jugarRuleta(Jugador *j);
 
-#endif // RULETA_H
+#endif
