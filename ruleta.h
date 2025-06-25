@@ -2,7 +2,7 @@
 #define RULETA_H
 
 #include "jugador.h"
-#include "list.h"  // Incluimos el TDA lista
+#include "TDAS/list.h"  
 
 #define TOTAL_CASILLAS 37
 
