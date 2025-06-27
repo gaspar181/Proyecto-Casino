@@ -27,7 +27,7 @@ typedef struct {
     TipoApuesta tipo;
     double cantidad;
     int numero;         // para apuesta por número
-    Color color;        // para apuesta por color (incluye VERDE)
+    Color color;        // para apuesta por color 
     int tercio_inicio;  // para apuesta por rango
     int tercio_fin;
 } Apuesta;

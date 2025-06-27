@@ -12,7 +12,7 @@ int main() {
 
     limpiarPantalla();
 
-    menu_inicio(); 
+    menu_inicio(); // inicia el juego/codigo 
 
     limpiarPantalla();
 
