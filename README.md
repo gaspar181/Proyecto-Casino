@@ -53,7 +53,7 @@ Este sistema ha sido desarrollado en lenguaje C y puede ejecutarse fácilmente u
         ```
         ./casino.exe
         ```
-5. **En caso de ocupar make **
+5. **En caso de ocupar make**
     - Para borrar los archivos tenporales escribe en la terminal:
         
         ```powershell
