@@ -15,7 +15,29 @@ Este sistema ha sido desarrollado en lenguaje C y puede ejecutarse fácilmente u
 - Tener instalado [Visual Studio Code](https://code.visualstudio.com/).
 - Instalar la extensión **C/C++** (Microsoft).
 - Tener instalado un compilador de C (como **gcc**). Si estás en Windows, se recomienda instalar [MinGW](https://www.mingw-w64.org/) o utilizar el entorno [WSL](https://learn.microsoft.com/en-us/windows/wsl/).
+- Opcional: Para compilar más fácilmente puedes usar make. Para ello, asegúrate de tener instalado make
+- Para instalar en Windows 
+    Opción 1: Usando MSYS2 (recomendado)
+    Instala MSYS2
 
+    Abre la terminal MSYS2 y ejecuta:
+
+    ```bash
+    pacman -S make gcc
+    ```
+    Opción 2: Usando Chocolatey
+    Asegúrate de tener instalado Chocolatey
+
+    Abre PowerShell como administrador y ejecuta:
+
+    ```powershell
+    choco install make
+    ```
+    También puedes instalar gcc con Chocolatey si lo necesitas:
+
+    ```powershell
+    choco install mingw
+    ```
 ### Pasos para compilar y ejecutar:
 
 1. **Descarga y descomprime el** archivo `.zip` en una carpeta de tu elección.
@@ -92,7 +114,7 @@ El programa comprueba si el saldo del jugador es mayor a 0 antes de darle la opc
 Seleccione una opción: 
 ```
 
-El programa muestra los datos de todas las canciones cargadas de Marcianeke
+El usuario selecciona la opcion para ir. 
 
 **2.1 Blackjack**
 
