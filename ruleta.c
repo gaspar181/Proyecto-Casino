@@ -3,8 +3,9 @@
 #include <time.h>
 #include "ruleta.h"
 #include "jugador.h"
-#include "utils.h"  // Para limpiar pantalla y pausar
+#include "utils.h"  
 
+// Funcion que para generar la ruleta 
 void inicializarRuleta(CasillaRuleta ruleta[]) {
     for (int i = 0; i < TOTAL_CASILLAS; i++) {
         ruleta[i].numero = i;
@@ -16,10 +17,13 @@ void inicializarRuleta(CasillaRuleta ruleta[]) {
     }
 }
 
+
+// Seleccionar un numero de la ruleta
 int girarRuleta() {
     return rand() % TOTAL_CASILLAS;
 }
 
+// Calcular el pago del jugador segun el tipo de apuesta que realizo
 double calcularPago(Apuesta* apuesta, CasillaRuleta ruleta[], int resultado, Jugador* j) {
     double m = j->multiplicador_actual;
     switch (apuesta->tipo) {
@@ -41,6 +45,8 @@ double calcularPago(Apuesta* apuesta, CasillaRuleta ruleta[], int resultado, Jug
     }
 }
 
+
+// Revisar la lista de apuestas y dar su pago total
 double calcularPagosMultiples(List *apuestas, CasillaRuleta ruleta[], int resultado, Jugador* j) {
     double total = 0;
     Apuesta *apuesta = (Apuesta *)list_first(apuestas);
@@ -51,6 +57,8 @@ double calcularPagosMultiples(List *apuestas, CasillaRuleta ruleta[], int result
     return total;
 }
 
+
+// Funcion que crea la lista y genera las apuestas multiples
 List *ingresarApuestas(Jugador* jugador) {
     List *apuestas = list_create();
     if (!apuestas) {
@@ -152,6 +160,8 @@ List *ingresarApuestas(Jugador* jugador) {
     return apuestas;
 }
 
+
+// Vacias la lista de apuestas
 void limpiarApuestas(List *apuestas) {
     if (!apuestas) return;
 
@@ -164,6 +174,8 @@ void limpiarApuestas(List *apuestas) {
     free(apuestas);
 }
 
+
+// Funcion para jugar a la ruleta
 void jugarRuleta(Jugador *j) {
     CasillaRuleta ruleta[TOTAL_CASILLAS];
     inicializarRuleta(ruleta);

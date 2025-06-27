@@ -47,7 +47,7 @@ void inicializarEquipos(Map* mapa) {
         {"Gladiadores Dorados", 3.6f}, {"Espartanos FC", 3.5f}, {"AC Malajax", 3.4f},
         {"Tigres Negros", 3.3f}, {"Rojos FC", 3.2f}, {"Azules FC", 3.1f},
         {"Barras Bravas", 2.9f}, {"Leones Negros", 2.8f}, {"Estrella de Plata", 2.7f},
-        {"Fuerza FC", 2.6f}, {"Fénix Dorado", 2.5f}
+        {"ICD FC", 2.6f}, {"Fénix Dorado", 2.5f}
     };
 
     int totalEquipos = sizeof(equipos) / sizeof(equipos[0]);
