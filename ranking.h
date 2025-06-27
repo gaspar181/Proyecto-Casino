@@ -5,5 +5,6 @@
 
 void guardarRanking(Jugador *j);
 void mostrarRanking();
+void limpiarRanking();
 
 #endif

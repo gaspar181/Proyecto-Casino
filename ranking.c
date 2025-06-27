@@ -49,3 +49,13 @@ void mostrarRanking() {
         printf("%d. %s - $%.2f\n", i + 1, registros[i].nombre, registros[i].saldo);
     }
 }
+
+void limpiarRanking() {
+    FILE *f = fopen(ARCHIVO_RANKING, "w");
+    if (!f) {
+        printf("Error al intentar limpiar el ranking.\n");
+        return;
+    }
+    fclose(f);
+    printf("Ranking limpiado exitosamente.\n");
+}

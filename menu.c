@@ -8,7 +8,7 @@
 #include "jugador.h"
 #include "ranking.h"
 
-#define TURNOS_MINIMOS 20
+#define TURNOS_MINIMOS 3
 
 void menu_juego(Jugador *j) {
     if (j->saldo == 0) {
@@ -26,7 +26,7 @@ void menu_juego(Jugador *j) {
             printf("1. Blackjack\n");
             printf("2. Ruleta\n");
             printf("3. Apuestas Deportivas\n");
-            printf("4. Bonificadores\n");
+            printf("4. Bonificadores y estado del jugador\n");
             printf("0. Salir del casino\n");
             printf("Seleccione una opción: ");
             scanf("%d", &opcion);
@@ -48,10 +48,12 @@ void menu_juego(Jugador *j) {
                 case 0:
                     if (j->turnos_jugados >= TURNOS_MINIMOS) {
                         guardarRanking(j);
+                        printf("Arrancaste con un saldo de: $%.2f\n", j->saldo);
+                        printf("Se actualizo tu lugar en el ranking");
                         printf("Gracias por visitarnos, que te vaya bonito compadrito.\n");
                         exit(0);
                     } else {
-                        int falta = 20 - j->turnos_jugados;
+                        int falta = TURNOS_MINIMOS - j->turnos_jugados;
                         printf("¡Oye no po! Aún no cumplís los turnos mínimos. Te faltan %d\n", falta);
                         printf("¡No se arranca del casino tan fácil!\n");
                         presioneTeclaParaContinuar();
@@ -119,36 +121,59 @@ void menu_bonificadores(Jugador *j) {
 void menu_inicio() {
     srand(time(NULL));
     inicializarBonificadores();
-    limpiarPantalla();
-    printf("=== Bienvenido al Casino ===\n");
-    printf("1. Iniciar Partida\n");
-    printf("2. Ver Ranking\n");
-    printf("3. Salir\n");
-    printf("Seleccione una opción: ");
-
-    int opcion;
-    scanf("%d", &opcion);
-    getchar();
 
     Jugador jugador;
-    inicializarJugador(&jugador);
+    int opcion;
 
-    switch (opcion) {
-        case 1:
-            menu_juego(&jugador);
-            break;
-        case 2:
-            mostrarRanking();
-            presioneTeclaParaContinuar();
-            menu_inicio();
-            break;
-        case 3:
-            printf("Gracias por visitar el Casino.\n");
-            exit(0);
-        default:
-            printf("Opción inválida.\n");
-            presioneTeclaParaContinuar();
-            menu_inicio();
-            break;
+    while (1) {
+        limpiarPantalla();
+        printf("=== Bienvenido al Casino ===\n");
+        printf("1. Iniciar Partida\n");
+        printf("2. Ver Ranking\n");
+        printf("3. Limpiar Ranking\n");
+        printf("4. Salir\n");
+        printf("Seleccione una opción: ");
+
+        scanf("%d", &opcion);
+        getchar(); // limpia salto de línea
+
+        switch (opcion) {
+            case 1:
+                inicializarJugador(&jugador);
+                menu_juego(&jugador);
+                break;
+
+            case 2:
+                mostrarRanking();
+                presioneTeclaParaContinuar();
+                break;
+
+            case 3: {
+                char opcion2;
+                printf("¿Deseas limpiar el ranking? (s/n): ");
+                scanf(" %c", &opcion2);
+                getchar(); // limpia salto de línea
+
+                if (opcion2 == 's' || opcion2 == 'S') {
+                    limpiarRanking();
+                    printf("Ranking limpio\n");
+                } else if (opcion2 == 'n' || opcion2 == 'N') {
+                    printf("No se limpió el ranking\n");
+                } else {
+                    printf("No se seleccionó una opción válida\n");
+                }
+                presioneTeclaParaContinuar();
+                break;
+            }
+
+            case 4:
+                printf("Gracias por visitar el Casino.\n");
+                exit(0);
+
+            default:
+                printf("Opción inválida.\n");
+                presioneTeclaParaContinuar();
+                break;
+        }
     }
 }
