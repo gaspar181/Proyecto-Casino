@@ -110,7 +110,7 @@ void jugarBlackjack(Jugador *j) {
 
         if (puntaje > 21) {
             printf("Te pasaste. Pierdes esta ronda.\n");
-            double perdida = apuesta * j->multiplicador_actual;
+            double perdida = apuesta;
             j->saldo -= perdida;
             printf("Perdiste %.2f. Saldo actual: %.2f\n", perdida, j->saldo);
             j->turnos_jugados++;
@@ -152,7 +152,7 @@ void jugarBlackjack(Jugador *j) {
 
     // Resultado
     if ((dealer > 21) || (puntaje > dealer)) {
-        double ganancia = apuesta * j->multiplicador_actual;
+        double ganancia = apuesta * 2 * j->multiplicador_actual;
         j->saldo += ganancia;
         printf("¡Ganaste! +%.2f | Saldo actual: %.2f\n", ganancia, j->saldo);
     } else if (puntaje == dealer) {
