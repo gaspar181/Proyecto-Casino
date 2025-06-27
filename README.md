@@ -55,9 +55,9 @@ Este sistema ha sido desarrollado en lenguaje C y puede ejecutarse fácilmente u
 
 ### A mejorar:
 
-- Implementar función para que el programa reconozca artistas/géneros sin que se escriban exactamente igual.
-- Implementar función para eliminar playlist y para editar estas, permitiendo borrar canciones y cambiar nombre.
-- Implementar función para buscar canciones por su nombre.
+- Implementar nuevos juegos.
+- Implementar nuevas bonificaciones.
+- Trabajar más las apuestas deportivas, permitiendo opciones dentro de partidos simulados y apuestas combinadas (como en ruleta).
 
 ## Ejemplo de uso
 
