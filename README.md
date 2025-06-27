@@ -8,9 +8,36 @@ Cuando el usuario termina los turnos requeridos para finalizar una partida, o se
 
 ## Cómo compilar y ejecutar
 
-Este sistema ha sido desarrollado en lenguaje C y puede ejecutarse fácilmente utilizando **Visual Studio Code** junto con una extensión para C/C++, como **C/C++ Extension Pack** de Microsoft. Para comenzar a trabajar con el sistema en tu equipo local, hay 2 opciones:
+Este sistema ha sido desarrollado en lenguaje C y puede ejecutarse fácilmente utilizando **Visual Studio Code** junto con una extensión para C/C++, como **C/C++ Extension Pack** de Microsoft. Para comenzar a trabajar con el sistema en tu equipo local, sigue estos pasos:
 
-A) 
+### Requisitos previos:
+
+- Tener instalado [Visual Studio Code](https://code.visualstudio.com/).
+- Instalar la extensión **C/C++** (Microsoft).
+- Tener instalado un compilador de C (como **gcc**). Si estás en Windows, se recomienda instalar [MinGW](https://www.mingw-w64.org/) o utilizar el entorno [WSL](https://learn.microsoft.com/en-us/windows/wsl/).
+
+### Pasos para compilar y ejecutar:
+
+1. **Descarga y descomprime el** archivo `.zip` en una carpeta de tu elección.
+2. **Abre el proyecto en Visual Studio Code**
+    - Inicia Visual Studio Code.
+    - Selecciona `Archivo > Abrir carpeta...` y elige la carpeta donde descomprimiste el proyecto.
+3. **Compila el código**
+    - Abre el archivo principal (`tarea2.c.
+    - Abre la terminal integrada (`Terminal > Nueva terminal`).
+    - En la terminal, compila el programa con el siguiente comando (ajusta el nombre si el archivo principal tiene otro nombre):
+        
+        ```powershell
+        gcc main.c menu.c ruleta.c apuesta.c blackjack.c bonos.c utils.c jugador.c ranking.c  .\TDAS\list.c .\TDAS\map.c  -o casino.exe
+        ```
+        
+4. **Ejecuta el programa**
+    - Una vez compilado, puedes ejecutar la aplicación con:
+        
+        ```
+        ./casino.exe
+        ```
+        
 
 ## Funcionalidades
 
@@ -195,4 +222,9 @@ El jugador tiene la opción de ver el ranking del total de jugadores que han sid
 
 Para ingresar al ranking hay que realizar un mínimo de apuestas tras iniciar una partida. Así podrás comparar tu saldo al salir con el del resto de jugadores.
 
-gcc main.c menu.c ruleta.c apuesta.c blackjack.c bonos.c utils.c jugador.c ranking.c  .\TDAS\list.c .\TDAS\map.c  -o casino.exe
+## Consideraciones generales
+- Ningún juego permite ingresar apuestas mayores al saldo del jugador.
+- Para probar un juego sin apostar, se puede ingresar caracteres no numéricos al momento de elegir la apuesta, así se puede jugar sin modificar el saldo.
+- El juego no permite terminar una partida si no se completó el mínimo de turnos, a menos que el jugador se quede sin saldo.
+- Los bonificadores que afecten al multiplicador solo afectarán durante el siguiente turno, luego el multiplicador extra se va.
+- Tanto las cartas del blackjack como las casillas de la ruleta salen de manera completamente aleatoria, en cambio en las apuestas deportivas el resultado será según el multiplicador asociado al equipo elegido.
