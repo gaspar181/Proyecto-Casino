@@ -17,19 +17,7 @@ Este sistema ha sido desarrollado en lenguaje C y puede ejecutarse fácilmente u
 - Tener instalado un compilador de C (como **gcc**). Si estás en Windows, se recomienda instalar [MinGW](https://www.mingw-w64.org/) o utilizar el entorno [WSL](https://learn.microsoft.com/en-us/windows/wsl/).
 - Opcional: Para compilar más fácilmente puedes usar make. Para ello, asegúrate de tener instalado make
 - Para instalar en Windows 
-    Opción 1: Usando MSYS2 (recomendado)
-    Instala MSYS2
-
-    Abre la terminal MSYS2 y ejecuta:
-
-    ```bash
-    pacman -S make gcc
-    ```
-    Opción 2: Usando Chocolatey
-    Asegúrate de tener instalado Chocolatey
-
     Abre PowerShell como administrador y ejecuta:
-
     ```powershell
     choco install make
     ```
@@ -38,6 +26,7 @@ Este sistema ha sido desarrollado en lenguaje C y puede ejecutarse fácilmente u
     ```powershell
     choco install mingw
     ```
+    en caso de complicaciones sugerimos seguir este tutorial: https://www.youtube.com/watch?v=5TavcolACQY
 ### Pasos para compilar y ejecutar:
 
 1. **Descarga y descomprime el** archivo `.zip` en una carpeta de tu elección.
@@ -46,19 +35,30 @@ Este sistema ha sido desarrollado en lenguaje C y puede ejecutarse fácilmente u
     - Selecciona `Archivo > Abrir carpeta...` y elige la carpeta donde descomprimiste el proyecto.
 3. **Compila el código**
     - Abre la terminal integrada (`Terminal > Nueva terminal`).
-    - En la terminal, compila el programa con el siguiente comando (ajusta el nombre si el archivo principal tiene otro nombre):
+    - En la terminal, compila el programa con el siguiente comando:
         
         ```powershell
         gcc main.c menu.c ruleta.c apuesta.c blackjack.c bonos.c utils.c jugador.c ranking.c  .\TDAS\list.c .\TDAS\map.c  -o casino.exe
         ```
+    - Si utilizas make:
+    - Abre la terminal integrada (`Terminal > Nueva terminal`).
+    - En la terminal, compila el programa con el siguiente comando:
         
+        ```powershell
+        make
+        ```
 4. **Ejecuta el programa**
     - Una vez compilado, puedes ejecutar la aplicación con:
         
         ```
         ./casino.exe
         ```
-
+5. **En caso de ocupar make **
+    - Para borrar los archivos tenporales escribe en la terminal:
+        
+        ```powershell
+        del *.o 
+        ```
 ### A mejorar:
 
 - Implementar nuevos juegos.
