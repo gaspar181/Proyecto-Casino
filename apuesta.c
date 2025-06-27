@@ -6,6 +6,14 @@
 #include "jugador.h"
 #include "utils.h" 
 
+void to_lowercase(char* str) {
+    for (int i = 0; str[i]; i++) {
+        if (str[i] >= 'A' && str[i] <= 'Z') {
+            str[i] = str[i] + ('a' - 'A');
+        }
+    }
+}
+
 int cmp_strings(void *a, void *b) {
     return strcasecmp((char *)a, (char *)b) == 0;
 }
@@ -61,13 +69,7 @@ void inicializarEquipos(Map* mapa) {
     }
 }
 
-void to_lowercase(char* str) {
-    for (int i = 0; str[i]; i++) {
-        if (str[i] >= 'A' && str[i] <= 'Z') {
-            str[i] = str[i] + ('a' - 'A');
-        }
-    }
-}
+
 
 void mostrarEquipos(Map* mapa) {
     printf("Equipos disponibles para apostar:\n");
