@@ -23,7 +23,6 @@ Este sistema ha sido desarrollado en lenguaje C y puede ejecutarse fácilmente u
     - Inicia Visual Studio Code.
     - Selecciona `Archivo > Abrir carpeta...` y elige la carpeta donde descomprimiste el proyecto.
 3. **Compila el código**
-    - Abre el archivo principal (`tarea2.c.
     - Abre la terminal integrada (`Terminal > Nueva terminal`).
     - En la terminal, compila el programa con el siguiente comando (ajusta el nombre si el archivo principal tiene otro nombre):
         
@@ -37,21 +36,6 @@ Este sistema ha sido desarrollado en lenguaje C y puede ejecutarse fácilmente u
         ```
         ./casino.exe
         ```
-        
-
-## Funcionalidades
-
-### Funcionando correctamente:
-
-- Cargar las canciones desde el archivo tipo csv.
-- Mostrar las canciones según su género, artista/s y tempo.
-- Crear playlists y agregarle canciones con el ID de estas.
-- Mostrar las playlists creadas y sus canciones guardadas.
-
-### Problemas conocidos:
-
-- Para buscar un artista o género, el usuario debe ingresar el nombre exacto con el que esté registrado, respetando espacios, mayúsculas y símbolos.
-- Por ejemplo:'Anuel AA' no es lo mismo que 'anuel a a'; 'soul' no es lo mismo que 'SouL'.
 
 ### A mejorar:
 
