@@ -11,7 +11,7 @@
 #define TURNOS_MINIMOS 3
 
 void menu_juego(Jugador *j) {
-    if (j->saldo == 0) {
+    if (j->saldo <= 0) {
         printf("¡Ya fue po! Al casino nunca se le gana, mi xan...\n");
         printf("Andate pa’ la casa con las manos vacías y vuelve cuando tengas plata.\n");
         guardarRanking(j);
@@ -46,7 +46,7 @@ void menu_juego(Jugador *j) {
                     menu_bonificadores(j);
                     break;
                 case 0:
-                    if (j->turnos_jugados >= TURNOS_MINIMOS) {
+                    if (j->turnos_jugados >= TURNOS_MINIMOS || j->saldo <= 0) {
                         guardarRanking(j);
                         printf("Arrancaste con un saldo de: $%.2f\n", j->saldo);
                         printf("Se actualizo tu lugar en el ranking");
