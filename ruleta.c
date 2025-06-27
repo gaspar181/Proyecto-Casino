@@ -177,6 +177,12 @@ void limpiarApuestas(List *apuestas) {
 
 // Funcion para jugar a la ruleta
 void jugarRuleta(Jugador *j) {
+    if (j->saldo <= 0) {
+        printf("Yo se que la ruleta se ve muy tentadora, pero no te quedan monedas...\n");
+        printf("Vuelve cuando traigas plata, compadre.\n");
+        presioneTeclaParaContinuar();
+        return;
+    }
     CasillaRuleta ruleta[TOTAL_CASILLAS];
     inicializarRuleta(ruleta);
 
