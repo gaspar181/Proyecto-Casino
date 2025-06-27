@@ -15,7 +15,7 @@ int ordenar(void *a, void *b) {
 // Crear las 156 cartas (3 mazos) barajadas en mapa ordenado
 Map *barajarCartas() {
     Map *mapa = sorted_map_create(ordenar);
-    //srand(time(NULL)); // para mezcla aleatoria
+    srand(time(NULL)); // para mezcla aleatoria
 
     char *pintas[] = {"pica", "corazón", "diamante", "trébol"};
 

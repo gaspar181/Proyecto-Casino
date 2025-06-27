@@ -5,7 +5,7 @@ TARGET = casino.exe
 CC = gcc
 
 # Flags de compilación (opcional)
-CFLAGS = -Wall -Wextra -std=c99
+CFLAGS = -Wall -Wextra -std=c99 -Wno-unused-parameter -Wno-old-style-declaration
 
 # Archivos fuente
 SRCS = main.c menu.c ruleta.c apuesta.c blackjack.c bonos.c utils.c jugador.c ranking.c \
@@ -19,16 +19,17 @@ all: $(TARGET)
 
 # Cómo construir el ejecutable
 $(TARGET): $(OBJS)
-	$(CC) $(OBJS) -o $(TARGET)
+	@echo "Casino Abierto"
+	@$(CC) $(OBJS) -o $(TARGET)
 
 # Regla para compilar los .c en .o
 %.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 # Limpiar archivos generados
 clean:
 	del /Q *.o *.exe 2>nul || true
 
-# Limpiar todo (más completo si quieres eliminar más cosas)
+# Limpiar todo
 mrproper: clean
 	del /Q *~ 2>nul || true
