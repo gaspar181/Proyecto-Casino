@@ -165,5 +165,6 @@ void jugarBlackjack(Jugador *j) {
     }
 
     j->turnos_jugados++;
+    j->multiplicador_actual = 1;
     presioneTeclaParaContinuar();
 }

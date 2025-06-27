@@ -126,6 +126,7 @@ void jugarApuestasDeportivas(Jugador* j) {
     }
 
     j->turnos_jugados++;
+    j->multiplicador_actual = 1;
 
     MapPair* p = map_first(mapaEquipos);
     while (p != NULL) {
