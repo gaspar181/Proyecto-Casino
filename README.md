@@ -29,11 +29,13 @@ Este sistema ha sido desarrollado en lenguaje C y puede ejecutarse fácilmente u
     en caso de complicaciones sugerimos seguir este tutorial: https://www.youtube.com/watch?v=5TavcolACQY
 ### Pasos para compilar y ejecutar:
 
-1. **Descarga y descomprime el** archivo `.zip` en una carpeta de tu elección.
-2. **Abre el proyecto en Visual Studio Code**
-    - Inicia Visual Studio Code.
-    - Selecciona `Archivo > Abrir carpeta...` y elige la carpeta donde descomprimiste el proyecto.
-3. **Compila el código**
+1. **Abre Visual Studio Core** y selecciona **Clone Git Repository...**
+2. Teniendo el proyecto abierto en **GitHub**:
+    - Aprieta el botón verde **<>Code**
+    - Copia la url del proyecto
+    - Pega en VSCode donde dice **Clone from GitHub** (al seleccionar **Clone Git Repository...**)
+3. **Selecciona carpeta de destino** para el repositorio abierto.
+4. **Compila el código**
     - Abre la terminal integrada (`Terminal > Nueva terminal`).
     - En la terminal, compila el programa con el siguiente comando:
         
@@ -47,13 +49,13 @@ Este sistema ha sido desarrollado en lenguaje C y puede ejecutarse fácilmente u
         ```powershell
         make
         ```
-4. **Ejecuta el programa**
+5. **Ejecuta el programa**
     - Una vez compilado, puedes ejecutar la aplicación con:
         
         ```
         ./casino.exe
         ```
-5. **En caso de ocupar make**
+6. **En caso de ocupar make**
     - Para borrar los archivos tenporales escribe en la terminal:
         
         ```powershell

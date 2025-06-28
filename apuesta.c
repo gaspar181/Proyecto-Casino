@@ -6,8 +6,16 @@
 #include "jugador.h"
 #include "utils.h" 
 
+void to_lowercase(char* str) {
+    for (int i = 0; str[i]; i++) {
+        if (str[i] >= 'A' && str[i] <= 'Z') {
+            str[i] = str[i] + ('a' - 'A');
+        }
+    }
+}
+
 int cmp_strings(void *a, void *b) {
-    return strcmp((char *)a, (char *)b) == 0;
+    return strcasecmp((char *)a, (char *)b) == 0;
 }
 
 void inicializarEquipos(Map* mapa) {
@@ -51,15 +59,17 @@ void inicializarEquipos(Map* mapa) {
     };
 
     int totalEquipos = sizeof(equipos) / sizeof(equipos[0]);
-    //srand((unsigned)time(NULL));
 
     for (int i = 0; i < totalEquipos; i++) {
         char* nombreEquipo = strdup(equipos[i].nombre);
+        to_lowercase(nombreEquipo);
         float* multPtr = malloc(sizeof(float));
         *multPtr = equipos[i].multiplicador;
         map_insert(mapa, nombreEquipo, multPtr);
     }
 }
+
+
 
 void mostrarEquipos(Map* mapa) {
     printf("Equipos disponibles para apostar:\n");
@@ -88,6 +98,7 @@ void jugarApuestasDeportivas(Jugador* j) {
     printf("Elige el nombre del equipo para apostar: ");
     fgets(opcionEquipo, sizeof(opcionEquipo), stdin);
     opcionEquipo[strcspn(opcionEquipo, "\n")] = 0;
+    to_lowercase(opcionEquipo);
 
     MapPair* pair = map_search(mapaEquipos, opcionEquipo);
     if (pair == NULL) {
