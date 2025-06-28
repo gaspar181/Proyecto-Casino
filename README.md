@@ -236,3 +236,11 @@ Para ingresar al ranking hay que realizar un mínimo de apuestas tras iniciar un
 - El juego no permite terminar una partida si no se completó el mínimo de turnos, a menos que el jugador se quede sin saldo.
 - Los bonificadores que afecten al multiplicador solo afectarán durante el siguiente turno, luego el multiplicador extra se va.
 - Tanto las cartas del blackjack como las casillas de la ruleta salen de manera completamente aleatoria, en cambio en las apuestas deportivas el resultado será según el multiplicador asociado al equipo elegido.
+
+
+
+## Autores
+
+- Gaspar Albornoz 
+- Ramón Espinoza
+- Matías López 
