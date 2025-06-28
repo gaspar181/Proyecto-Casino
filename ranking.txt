@@ -2,3 +2,4 @@ Ramon,1358.00
 Tito,1400.00
 gaspar,1580.00
 huhuhh,0.00
+Ramon,0.00

@@ -49,7 +49,7 @@ void menu_juego(Jugador *j) {
                     if (j->turnos_jugados >= TURNOS_MINIMOS || j->saldo <= 0) {
                         guardarRanking(j);
                         printf("Arrancaste con un saldo de: $%.2f\n", j->saldo);
-                        printf("Se actualizo tu lugar en el ranking");
+                        printf("Se actualizo tu lugar en el ranking\n");
                         printf("Gracias por visitarnos, que te vaya bonito compadrito.\n");
                         exit(0);
                     } else {
@@ -85,7 +85,7 @@ void menu_bonificadores(Jugador *j) {
 
         switch (opcion) {
             case 1: {
-                mostrarBonificador(j->ultimo_bonificador); // O el último guardado
+                mostrarBonificador(j->ultimo_bonificador); 
                 presioneTeclaParaContinuar();
                 break;
             }
@@ -135,7 +135,7 @@ void menu_inicio() {
         printf("Seleccione una opción: ");
 
         scanf("%d", &opcion);
-        getchar(); // limpia salto de línea
+        getchar();
 
         switch (opcion) {
             case 1:
@@ -150,7 +150,7 @@ void menu_inicio() {
 
             case 3: {
                 char opcion2;
-                printf("¿Deseas limpiar el ranking? (s/n): ");
+                printf("¿Deseas limpiar el ranking? (s/n): \n");
                 scanf(" %c", &opcion2);
                 getchar(); // limpia salto de línea
 
