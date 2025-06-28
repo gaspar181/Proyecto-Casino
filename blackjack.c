@@ -156,8 +156,7 @@ void jugarBlackjack(Jugador *j) {
         j->saldo += ganancia;
         printf("¡Ganaste! +%.2f | Saldo actual: %.2f\n", ganancia, j->saldo);
     } else if (puntaje == dealer) {
-        printf("Empate. Se devuelve tu apuesta.\n");
-        // saldo queda igual
+        printf("Empate. Se devuelve tu apuesta.\n");           // saldo queda igual
     } else {
         double perdida = apuesta;
         j->saldo -= perdida;
