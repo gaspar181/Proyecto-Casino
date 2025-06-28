@@ -4,7 +4,7 @@
 #include "bonos.h"
 
 void inicializarJugador(Jugador *j) {
-    printf("¡Bienvenido al Casino Virtual!\n");
+    printf("¡Bienvenido al Casino Virtual!\n"); // Lineas cuando inicia juego y con ello jugador
     printf("Por favor, ingresa tu nombre: ");
     fgets(j->nombre, MAX_NOMBRE, stdin);
     size_t len = strlen(j->nombre);
@@ -15,11 +15,12 @@ void inicializarJugador(Jugador *j) {
     int opcion = 0;
     char buffer[10];
 
+    // eleccion de dinero de inicio 
     printf("\n%s, antes de comenzar, elige cuánto quieres apostar para esta noche:\n", j->nombre);
     printf("1) Prefiero empezar tranquilo, con un presupuesto modesto ($500).\n");
     printf("2) Me siento con suerte y quiero jugar con $1000.\n");
     printf("3) Quiero una noche increíble y arriesgar $2000.\n");
-
+    // validacion de opcion 
     while (1) {
         printf("Selecciona tu opción (1, 2 o 3): ");
         if (fgets(buffer, sizeof(buffer), stdin) != NULL) {
@@ -31,7 +32,7 @@ void inicializarJugador(Jugador *j) {
         }
         printf("Opción inválida. Por favor ingresa 1, 2 o 3.\n");
     }
-
+    // Entregar dinero de inicio
     switch (opcion) {
         case 1:
             j->saldo = 500.0;

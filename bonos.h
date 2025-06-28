@@ -3,6 +3,8 @@
 
 #define MAX_NOMBRE_BONIFICADOR 50
 
+// Estructuras necesarias para los bonificadores 
+
 struct Jugador;
 
 typedef enum {

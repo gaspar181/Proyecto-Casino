@@ -6,6 +6,8 @@
 
 #define TOTAL_CASILLAS 37
 
+// Estructuras para toda la ruleta
+
 typedef enum {
     VERDE = 0,          // para division de Colores 
     ROJO = 1,           

@@ -8,14 +8,14 @@
 #include "jugador.h"
 #include "ranking.h"
 
-#define TURNOS_MINIMOS 3
+#define TURNOS_MINIMOS 20
 
 void menu_juego(Jugador *j) {
     if (j->saldo <= 0) {
         printf("¡Ya fue po! Al casino nunca se le gana, mi xan...\n");
         printf("Andate pa’ la casa con las manos vacías y vuelve cuando tengas plata.\n");
-        guardarRanking(j);
-        menu_inicio(&j);
+        guardarRanking(j); // Guarda saldo actual antes de salir sin saldo
+        menu_inicio(&j);  // Reinicia el menú desde el inicio
         presioneTeclaParaContinuar();
         return;
     } else{
@@ -30,7 +30,7 @@ void menu_juego(Jugador *j) {
             printf("0. Salir del casino\n");
             printf("Seleccione una opción: ");
             scanf("%d", &opcion);
-            getchar();
+            getchar(); // Limpia salto de línea
 
             switch (opcion) {
                 case 1:
@@ -47,11 +47,11 @@ void menu_juego(Jugador *j) {
                     break;
                 case 0:
                     if (j->turnos_jugados >= TURNOS_MINIMOS || j->saldo <= 0) {
-                        guardarRanking(j);
+                        guardarRanking(j); // Guarda si cumple condición de salida
                         printf("Arrancaste con un saldo de: $%.2f\n", j->saldo);
                         printf("Se actualizo tu lugar en el ranking\n");
                         printf("Gracias por visitarnos, que te vaya bonito compadrito.\n");
-                        exit(0);
+                        exit(0); // Termina el programa
                     } else {
                         int falta = TURNOS_MINIMOS - j->turnos_jugados;
                         printf("¡Oye no po! Aún no cumplís los turnos mínimos. Te faltan %d\n", falta);
@@ -81,7 +81,7 @@ void menu_bonificadores(Jugador *j) {
         printf("0. Volver\n");
         printf("Seleccione una opción: ");
         scanf("%d", &opcion);
-        getchar();
+        getchar(); // Limpia salto de línea
 
         switch (opcion) {
             case 1: {
@@ -90,10 +90,10 @@ void menu_bonificadores(Jugador *j) {
                 break;
             }
             case 2: {
-                Bonificador nuevo = seleccionarBonificadorAleatorio();
+                Bonificador nuevo = seleccionarBonificadorAleatorio(); // Asigna uno aleatorio
                 mostrarBonificador(nuevo);
                 aplicarBonificador(nuevo, j);
-                j->ultimo_bonificador = nuevo;
+                j->ultimo_bonificador = nuevo; // lo guarda como ultimo 
                 presioneTeclaParaContinuar();
                 break;
             }
@@ -120,7 +120,7 @@ void menu_bonificadores(Jugador *j) {
 // Menú de inicio (login o nueva partida)
 void menu_inicio() {
     srand(time(NULL));
-    inicializarBonificadores();
+    inicializarBonificadores(); // Carga lista de bonificadores
 
     Jugador jugador;
     int opcion;

@@ -5,6 +5,7 @@
 
 #define MAX_NOMBRE 50
 
+// Estructura de jugador 
 typedef struct Jugador{
     char nombre[MAX_NOMBRE];
     double saldo;

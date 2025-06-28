@@ -29,7 +29,7 @@ Map *barajarCartas() {
                 int *clave = malloc(sizeof(int));
                 do {
                     *clave = rand() % 10000 + 1;
-                } while (map_search(mapa, clave) != NULL);
+                } while (map_search(mapa, clave) != NULL); // Evita claves repetidas
 
                 map_insert(mapa, clave, c);
             }
@@ -46,14 +46,14 @@ Stack *generarMazo() {
     MapPair *par = map_first(baraja);
     while (par != NULL) {
         stack_push(mazo, par->value); // solo cartas
-        par = map_next(baraja);
+        par = map_next(baraja); // Recorre el mapa ordenado
     }
 
     map_clean(baraja);
     return mazo;
 }
 
-// Devuelve el valor numérico de una carta para el juego
+// Asigna 10 a cartas J, Q, K
 int obtenerValorCarta(Carta *c) {
     if (c->numero >= 10) return 10;
     return c->numero;
@@ -95,7 +95,8 @@ void jugarBlackjack(Jugador *j) {
 
         printf("Carta: %d de %s\n", carta->numero, carta->pinta);
         int valor = obtenerValorCarta(carta);
-        if (carta->numero == 1) {
+        // Si carta es As, vale 11 pero puede bajar a 1 si se pasa
+        if (carta->numero == 1) { 
             puntaje += 11;
             ases++;
         }
@@ -123,7 +124,7 @@ void jugarBlackjack(Jugador *j) {
         if (opcion == 'n' || opcion == 'N') break;
     }
 
-    // Simular turno del dealer
+    // Simula turno del dealer: saca hasta alcanzar mínimo 17 o superar al jugador
     int dealer = 0, ases_d = 0;
     printf("\nMi turno waton, se te viene pesado\n");
     while (dealer < 17 || dealer < puntaje) {
@@ -150,7 +151,7 @@ void jugarBlackjack(Jugador *j) {
     printf("Puntaje dealer: %d\n", dealer);
     printf("Tu puntaje final: %d\n", puntaje);
 
-    // Resultado
+    // Calcula resultado según reglas de blackjack y aplica el multiplicador del jugador
     if ((dealer > 21) || (puntaje > dealer)) {
         double ganancia = apuesta * j->multiplicador_actual;
         j->saldo += ganancia;

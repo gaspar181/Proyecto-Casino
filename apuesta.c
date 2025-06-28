@@ -6,6 +6,7 @@
 #include "jugador.h"
 #include "utils.h" 
 
+// Convierte una cadena a minúsculas (para búsquedas insensibles a mayúsculas)
 void to_lowercase(char* str) {
     for (int i = 0; str[i]; i++) {
         if (str[i] >= 'A' && str[i] <= 'Z') {
@@ -14,10 +15,12 @@ void to_lowercase(char* str) {
     }
 }
 
+// Compara strings sin distinguir mayúsculas
 int cmp_strings(void *a, void *b) {
     return strcasecmp((char *)a, (char *)b) == 0;
 }
 
+// Inserta todos los equipos y sus multiplicadores al mapa con claves en minúsculas
 void inicializarEquipos(Map* mapa) {
     struct {
         const char* nombre;
@@ -60,7 +63,7 @@ void inicializarEquipos(Map* mapa) {
 
     int totalEquipos = sizeof(equipos) / sizeof(equipos[0]);
 
-    for (int i = 0; i < totalEquipos; i++) {
+    for (int i = 0; i < totalEquipos; i++) { // Copia nombre dinámicamente
         char* nombreEquipo = strdup(equipos[i].nombre);
         to_lowercase(nombreEquipo);
         float* multPtr = malloc(sizeof(float));
@@ -71,7 +74,7 @@ void inicializarEquipos(Map* mapa) {
 
 
 
-void mostrarEquipos(Map* mapa) {
+void mostrarEquipos(Map* mapa) { // Muestra lista numerada de equipos disponibles con sus multiplicadores
     printf("Equipos disponibles para apostar:\n");
     MapPair* par = map_first(mapa);
     int idx = 1;
@@ -89,18 +92,18 @@ void jugarApuestasDeportivas(Jugador* j) {
         return;
     }
 
-    Map* mapaEquipos = map_create(cmp_strings);
-    inicializarEquipos(mapaEquipos);
+    Map* mapaEquipos = map_create(cmp_strings); // Crea mapa
+    inicializarEquipos(mapaEquipos); // Carga equipos
 
     mostrarEquipos(mapaEquipos);
 
     char opcionEquipo[50];
     printf("Elige el nombre del equipo para apostar: ");
-    fgets(opcionEquipo, sizeof(opcionEquipo), stdin);
+    fgets(opcionEquipo, sizeof(opcionEquipo), stdin); // Lee nombre del equipo con espacios
     opcionEquipo[strcspn(opcionEquipo, "\n")] = 0;
     to_lowercase(opcionEquipo);
 
-    MapPair* pair = map_search(mapaEquipos, opcionEquipo);
+    MapPair* pair = map_search(mapaEquipos, opcionEquipo); // Busca equipo elegido
     if (pair == NULL) {
         printf("Equipo no encontrado.\n");
         map_clean(mapaEquipos);
@@ -124,21 +127,21 @@ void jugarApuestasDeportivas(Jugador* j) {
         return;
     }
 
-    float prob_ganar = 1.0f / (*multiplicador);
-    float r = (float)rand() / RAND_MAX;
+    float prob_ganar = 1.0f / (*multiplicador); // multiplicador como probabilidad
+    float r = (float)rand() / RAND_MAX; // Número aleatorio para ver si gana 
 
     if (r <= prob_ganar) {
-        double ganancia = apuesta * (*multiplicador);
-        j->saldo += ganancia - apuesta;
+        double ganancia = apuesta * (*multiplicador); 
+        j->saldo += ganancia - apuesta; // Recupera apuesta + ganancia neta
         printf("¡Ganaste! Tu equipo %s se lució.\nGanancia: %.2f\nSaldo actual: %.2f\n", opcionEquipo, ganancia, j->saldo);
     } else {
         j->saldo -= apuesta;
-        printf("Perdiste la apuesta. Tu equipo %s no pudo.\nSaldo restante: %.2f\n", opcionEquipo, j->saldo);
+        printf("Perdiste la apuesta. Tu equipo %s no pudo.\nSaldo restante: %.2f\n", opcionEquipo, j->saldo); // Pierde el monto apostado
     }
 
     j->turnos_jugados++;
     j->multiplicador_actual = 1;
-
+    // Libera memoria de claves y valores del mapa
     MapPair* p = map_first(mapaEquipos);
     while (p != NULL) {
         free(p->key);
